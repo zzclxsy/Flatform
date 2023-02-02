@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/main"/>
+    <qresource prefix="/image">
+        <file alias="Image/system/close.svg">../../Nova/JHQmlApp/main/Image/system/close.svg</file>
+        <file alias="Image/system/largeWin.svg">../../Nova/JHQmlApp/main/Image/system/largeWin.svg</file>
+        <file alias="Image/system/minwin.svg">../../Nova/JHQmlApp/main/Image/system/minwin.svg</file>
+        <file alias="Image/system/smallWin.svg">../../Nova/JHQmlApp/main/Image/system/smallWin.svg</file>
+        <file alias="Image/system/nav_blue.jpg">../../Nova/JHQmlApp/main/Image/system/nav_blue.jpg</file>
+        <file alias="Image/system/nav_red.png">../../Nova/JHQmlApp/main/Image/system/nav_red.png</file>
+        <file alias="Image/login/left.png">../../Nova/JHQmlApp/main/Image/login/left.png</file>
+        <file alias="Image/login/password1.png">../../Nova/JHQmlApp/main/Image/login/password1.png</file>
+        <file alias="Image/login/password2.png">../../Nova/JHQmlApp/main/Image/login/password2.png</file>
+        <file alias="Image/login/splash.png">../../Nova/JHQmlApp/main/Image/login/splash.png</file>
+        <file alias="Image/login/user.png">../../Nova/JHQmlApp/main/Image/login/user.png</file>
+        <file alias="Image/login/xiaoyuan.svg">../../Nova/JHQmlApp/main/Image/login/xiaoyuan.svg</file>
+        <file alias="Image/system/add.svg">../../Nova/JHQmlApp/main/Image/system/add.svg</file>
+        <file alias="Image/system/finished.svg">../../Nova/JHQmlApp/main/Image/system/finished.svg</file>
+    </qresource>
+</RCC>

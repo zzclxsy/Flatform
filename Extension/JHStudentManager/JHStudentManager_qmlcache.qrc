@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/JHStudentManager">
+        <file alias="icon/studentinfo.svg">icon/studentinfo.svg</file>
+        <file alias="image/addStudent.svg">image/addStudent.svg</file>
+        <file alias="image/add.svg">image/add.svg</file>
+        <file alias="image/delete.svg">image/delete.svg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>

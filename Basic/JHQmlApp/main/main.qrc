@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/main">
+        <file>JHWindowOperator.qml</file>
+        <file>main.qml</file>
+        <file>JHPluginLoader.qml</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>Image/system/close.svg</file>
+        <file>Image/system/largeWin.svg</file>
+        <file>Image/system/minwin.svg</file>
+        <file>Image/system/smallWin.svg</file>
+        <file>Image/system/nav_blue.jpg</file>
+        <file>Image/system/nav_red.png</file>
+        <file>Image/login/left.png</file>
+        <file>Image/login/password1.png</file>
+        <file>Image/login/password2.png</file>
+        <file>Image/login/splash.png</file>
+        <file>Image/login/user.png</file>
+        <file>Image/login/xiaoyuan.svg</file>
+        <file>Image/system/add.svg</file>
+        <file>Image/system/finished.svg</file>
+    </qresource>
+</RCC>

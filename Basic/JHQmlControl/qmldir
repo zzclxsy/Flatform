@@ -1,0 +1,14 @@
+module JHQmlControls
+JHNavBarV 1.0 qrc:/JHQmlControl/JHNavBarV.qml
+JHButton 1.0 qrc:/JHQmlControl/JHButton.qml
+JHMessagePopup 1.0 qrc:/JHQmlControl/JHMessagePopup.qml
+JHPopup 1.0 qrc:/JHQmlControl/JHPopup.qml
+JHMask 1.0 qrc:/JHQmlControl/JHMask.qml
+JHDialog 1.0 qrc:/JHQmlControl/JHDialog.qml
+JHTableView 1.0 qrc:/JHQmlControl/JHTableView.qml
+JHTableHeader 1.0 qrc:/JHQmlControl/JHTableHeader.qml
+JHTableRow 1.0 qrc:/JHQmlControl/JHTableRow.qml
+JHTableColumn 1.0 qrc:/JHQmlControl/JHTableColumn.qml
+JHTableCell 1.0 qrc:/JHQmlControl/JHTableCell.qml
+JHButton2 1.0 qrc:/JHQmlControl/JHButton2.qml
+plugin JHQmlControls

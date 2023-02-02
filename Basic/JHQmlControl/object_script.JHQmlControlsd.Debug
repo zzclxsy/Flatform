@@ -1,0 +1,16 @@
+debug/JHQmlControlPlugin.o
+debug/qrc_JHQmlControls_qmlcache.o
+debug/JHDialog_qml.o
+debug/JHTableCell_qml.o
+debug/JHMessagePopup_qml.o
+debug/JHPopup_qml.o
+debug/JHTableRow_qml.o
+debug/JHTableColumn_qml.o
+debug/JHNavBarV_qml.o
+debug/JHMask_qml.o
+debug/JHTableView_qml.o
+debug/JHButton_qml.o
+debug/JHTableHeader_qml.o
+debug/JHButton2_qml.o
+debug/qmlcache_loader.o
+debug/moc_JHQmlControlPlugin.o

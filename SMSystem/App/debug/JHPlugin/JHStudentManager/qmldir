@@ -1,0 +1,3 @@
+module JHStudentManager
+JHStudentManager 1.0 qrc:/JHStudentManager/JHStudentManager.qml
+plugin JHStudentManager

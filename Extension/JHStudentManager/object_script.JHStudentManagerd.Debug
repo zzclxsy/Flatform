@@ -1,0 +1,11 @@
+debug/JHStudentManagerPlugin.o
+debug/JHStudentManager.o
+debug/qrc_JHStudentManager_qmlcache.o
+debug/JHStudentListView_qml.o
+debug/JHAddStudentDialog_qml.o
+debug/JHAddStudentListView_qml.o
+debug/JHStudentManager_qml.o
+debug/JHStudentManagerSite_qml.o
+debug/qmlcache_loader.o
+debug/moc_JHStudentManagerPlugin.o
+debug/moc_JHStudentManager.o

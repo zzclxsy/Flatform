@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/JHRollCallMachine">
+        <file>JHRollCallMachine.qml</file>
+        <file>JHRandomSite.qml</file>
+        <file>icon/Roll.png</file>
+        <file>JHRollPage.qml</file>
+        <file>JHScannerItem.qml</file>
+    </qresource>
+</RCC>

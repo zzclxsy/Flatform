@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/JHQmlControl">
+        <file>JHButton.qml</file>
+        <file>JHNavBarV.qml</file>
+        <file>JHMessagePopup.qml</file>
+        <file>JHPopup.qml</file>
+        <file>JHMask.qml</file>
+        <file>JHDialog.qml</file>
+        <file>JHTableView.qml</file>
+        <file>JHTableCell.qml</file>
+        <file>JHTableColumn.qml</file>
+        <file>JHTableHeader.qml</file>
+        <file>JHTableRow.qml</file>
+        <file>JHButton2.qml</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>image/close.svg</file>
+        <file>image/errorInfo.svg</file>
+        <file>image/info.svg</file>
+        <file>image/warn.svg</file>
+        <file>image/down.png</file>
+    </qresource>
+</RCC>

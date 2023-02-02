@@ -1,0 +1,11 @@
+release/JHStudentManagerPlugin.o
+release/JHStudentManager.o
+release/qrc_JHStudentManager_qmlcache.o
+release/JHStudentListView_qml.o
+release/JHAddStudentDialog_qml.o
+release/JHAddStudentListView_qml.o
+release/JHStudentManager_qml.o
+release/JHStudentManagerSite_qml.o
+release/qmlcache_loader.o
+release/moc_JHStudentManagerPlugin.o
+release/moc_JHStudentManager.o

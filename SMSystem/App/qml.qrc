@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>SMSystemUI.qml</file>
+        <file>JHLoginView.qml</file>
+        <file>JHRegisterPage.qml</file>
+        <file>JHClassSelect.qml</file>
+        <file>JHCreateClssDialog.qml</file>
+    </qresource>
+</RCC>

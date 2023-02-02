@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/JHStudentManager">
+        <file>JHStudentManager.qml</file>
+        <file>JHStudentManagerSite.qml</file>
+        <file>icon/studentinfo.svg</file>
+        <file>JHStudentListView.qml</file>
+        <file>image/addStudent.svg</file>
+        <file>JHAddStudentDialog.qml</file>
+        <file>JHAddStudentListView.qml</file>
+        <file>image/add.svg</file>
+        <file>image/delete.svg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>

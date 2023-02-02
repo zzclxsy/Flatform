@@ -1,0 +1,3 @@
+module JH.Function.JHRollCallMachine
+JHRollCallMachine 1.0 qrc:/JHRollCallMachine/JHRollCallMachine.qml
+plugin JHRollCallMachine

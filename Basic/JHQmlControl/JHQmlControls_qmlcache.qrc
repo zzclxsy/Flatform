@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/JHQmlControl"/>
+    <qresource prefix="/image">
+        <file alias="image/close.svg">image/close.svg</file>
+        <file alias="image/errorInfo.svg">image/errorInfo.svg</file>
+        <file alias="image/info.svg">image/info.svg</file>
+        <file alias="image/warn.svg">image/warn.svg</file>
+        <file alias="image/down.png">image/down.png</file>
+    </qresource>
+</RCC>

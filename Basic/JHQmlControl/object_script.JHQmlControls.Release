@@ -1,0 +1,16 @@
+release/JHQmlControlPlugin.o
+release/qrc_JHQmlControls_qmlcache.o
+release/JHDialog_qml.o
+release/JHTableCell_qml.o
+release/JHMessagePopup_qml.o
+release/JHPopup_qml.o
+release/JHTableRow_qml.o
+release/JHTableColumn_qml.o
+release/JHNavBarV_qml.o
+release/JHMask_qml.o
+release/JHTableView_qml.o
+release/JHButton_qml.o
+release/JHTableHeader_qml.o
+release/JHButton2_qml.o
+release/qmlcache_loader.o
+release/moc_JHQmlControlPlugin.o
