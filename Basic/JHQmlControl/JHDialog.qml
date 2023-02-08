@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import JHQmlControls 1.0
 import QtGraphicalEffects 1.12
+import QtQml 2.12
 JHPopup {
     id: page
     focus: true
-    visible: false
-
+    visible: true
+    opacity: 0
     showMask: true
     animationType:"size"
     anchors.centerIn: parent
@@ -16,7 +17,8 @@ JHPopup {
     }
 
     function showPage(){
-         show()
+        save()
+        show()
     }
 
     Rectangle{
@@ -120,5 +122,8 @@ JHPopup {
         color: "#000000"
         source: main0
     }
-
+    Component.onCompleted: {
+        page.visible = false
+        page.opacity = 1;
+    }
 }

@@ -3,24 +3,37 @@ import JHQmlControls 1.0
 import QtQuick.Controls 2.4
 import QtQml 2.12
 Rectangle {
-    property alias listmodel: dataListView.model
+    function switchover(){
+        dataListView.model = null
+        dataListView.model = SMApi.studentModel
+    }
+
     function addStudent()
     {
         dataListView.focus = true
-        var data = {"chinese":-1,"name":"","mathematics":-1,"english":-1,"score":0,"remark":"","sex":1}
+        var data = {"chinese":-1,"name":"","mathematics":-1,"english":-1,"score":0,"remark":"","sex":0}
 
         SMApi.studentModel.addStudent(data)
         dataListView.positionViewAtEnd()
     }
     function deleteStudent()
     {
-        console.log(currentIndex)
-        SMApi.studentModel.deleteStudent(currentIndex)
-       // currentIndex =SMApi.studentModel.rowCount()
+        if (modelCurrentIndex === -1)
+            return
 
+        SMApi.studentModel.deleteStudent(modelCurrentIndex)
+        modelCurrentIndex = -1
     }
 
-    property int currentIndex: 0
+    property int modelCurrentIndex: 0
+
+    Connections{
+        target: SMApi.studentModel
+        onRemoveData:{
+            switchover()
+        }
+    }
+
     Flickable{
         id:slotFlick
         clip: true
@@ -116,7 +129,6 @@ Rectangle {
             id: dataListView
             anchors.fill: parent
             headerItem:headerD
-
             property var isSelectItem: null
             delegate: JHTableRow{
                 id:row
@@ -127,7 +139,7 @@ Rectangle {
                 JHTableCell {
                     id: cellA
                     tagName: columnA.tagName
-                    width: columnA.width
+                    width:columnA.width
                     visible: columnA.visible
                     Rectangle{
                         anchors.fill: parent
@@ -173,10 +185,13 @@ Rectangle {
                             border.color:parent.focus? "#C0C0C6":"transparent"
                         }
                         onEditingFinished: {
-                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnB.tagName],text)
-
                             focus = false
                             cellBm.width = cellB.width
+
+                            if (model.data.name === text)
+                                return
+
+                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnB.tagName],text)
                         }
                         onFocusChanged: {
                             if (focus == true){
@@ -186,20 +201,31 @@ Rectangle {
 
                                 selectState = true
                                 dataListView.isSelectItem = row
-                                currentIndex = index
+                                modelCurrentIndex = index
                             }
                         }
                     }
-                    MouseArea{
+                    Rectangle{
                         id:cellBm
                         anchors.top: parent.top
                         anchors.left: parent.Left
                         anchors.bottom: parent.bottom
                         width: parent.width
-                        propagateComposedEvents:true
-                        onDoubleClicked: {
-                            textB.focus = true
-                            cellBm.width = 1
+                        color: "transparent"
+                        MouseArea{
+                            anchors.fill: parent
+                            onDoubleClicked: {
+                                textB.focus = true
+                                cellBm.width = 1
+                            }
+                            onPressed: {
+                                if (dataListView.isSelectItem !== null){
+                                    dataListView.isSelectItem.selectState = false
+                                }
+
+                                selectState = true
+                                dataListView.isSelectItem = row
+                            }
                         }
                     }
                 }
@@ -210,9 +236,11 @@ Rectangle {
                     width: columnC.width
                     visible: columnA.visible
                     property int comboxIndex: model.data.sex
+
                     ComboBox{
                         anchors.fill: parent
                         currentIndex:cellC.comboxIndex
+                        property bool initfinished: false
                         flat:true
                         background: Rectangle{
                             anchors.fill: parent
@@ -221,12 +249,28 @@ Rectangle {
 
                         textRole: "man"
                         model: ListModel {
-                            ListElement { man: " "}
+                            ListElement { man: "空"}
                             ListElement { man: "男"}
                             ListElement { man: "女"}
                         }
                         onCurrentIndexChanged: {
+                            if (initfinished == false){
+                                initfinished = true
+                                return
+                            }
+
                             SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[cellC.tagName],currentIndex)
+                        }
+                        onPressedChanged: {
+                            if (pressed == true){
+                                if (dataListView.isSelectItem !== null){
+                                    dataListView.isSelectItem.selectState = false
+                                }
+
+                                selectState = true
+                                dataListView.isSelectItem = row
+                                modelCurrentIndex = index
+                            }
                         }
                     }
                 }
@@ -256,10 +300,13 @@ Rectangle {
                             border.color:parent.focus? "#C0C0C6":"transparent"
                         }
                         onEditingFinished: {
-                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnD.tagName],text)
-
                             focus = false
                             cellDm.width = cellD.width
+
+                            if (model.data.remark === text)
+                                return
+
+                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnD.tagName],text)
                         }
                         onFocusChanged: {
                             if (focus == true){
@@ -269,23 +316,35 @@ Rectangle {
 
                                 selectState = true
                                 dataListView.isSelectItem = row
-                                currentIndex = index
+                                modelCurrentIndex = index
                             }
                         }
                     }
 
-                    MouseArea{
+                    Rectangle{
                         id:cellDm
                         anchors.top: parent.top
                         anchors.left: parent.Left
                         anchors.bottom: parent.bottom
                         width: parent.width
-                        propagateComposedEvents:true
-                        onDoubleClicked: {
-                            textD.focus = true
-                            cellDm.width = 1
+                        color: "transparent"
+                        MouseArea{
+                            anchors.fill: parent
+                            onDoubleClicked: {
+                                textD.focus = true
+                                cellDm.width = 1
+                            }
+                            onPressed: {
+                                if (dataListView.isSelectItem !== null){
+                                    dataListView.isSelectItem.selectState = false
+                                }
+
+                                selectState = true
+                                dataListView.isSelectItem = row
+                            }
                         }
                     }
+
                 }
 
                 onClicked: {
@@ -295,7 +354,7 @@ Rectangle {
 
                     selectState = true
                     dataListView.isSelectItem = row
-                    currentIndex = index
+                    modelCurrentIndex = index
 
                 }
             }

@@ -5,9 +5,10 @@ Rectangle{
     radius: 4
     border.color: "#C0C0C6"
     border.width: 1
+    property bool selected:false
+    property string selectColor:"transparent"
     property alias imageSource: image.source
     property alias text: showtext.text
-
     signal buttonClicked()
     signal buttonPressed()
     signal buttonReleased()
@@ -15,6 +16,12 @@ Rectangle{
     signal buttonEntered()
     signal buttonExited()
 
+    function clearColor(){
+        color="transparent"
+    }
+    function setColor(vet){
+        color = (vet)
+    }
 
     Image {
         id:image
@@ -52,11 +59,16 @@ Rectangle{
             buttonEntered()
         }
         onExited: {
-            parent.color="transparent"
             imagecolor.color = "transparent"
+
+            if ( selected ===false){
+              parent.color = "transparent"
+            }
+
             buttonExited()
         }
         onClicked: {
+            selected = true
             buttonClicked()
         }
         onPressed: {

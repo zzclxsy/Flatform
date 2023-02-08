@@ -1,4 +1,4 @@
-QT += quick sql
+QT += quick sql concurrent
 
 CONFIG += c++11
 
@@ -21,7 +21,6 @@ RESOURCES += qml.qrc \
 
 INCLUDEPATH += $$PWD/../../Basic/
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH +=  $$PWD/release
 QML_IMPORT_PATH +=  $$PWD/debug
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer

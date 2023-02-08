@@ -12,6 +12,8 @@ class JHSMApi:public QObject
 
 public:
     JHSMApi();
+    ~JHSMApi();
+
     void initialize();
     JHAccountManager *getAccountManager();
     JHStudentListModel *getStudentModelManager();

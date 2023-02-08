@@ -6,6 +6,12 @@ JHSMApi::JHSMApi()
     mp_studentListModel = nullptr;
 }
 
+JHSMApi::~JHSMApi()
+{
+    delete mp_studentListModel;
+    delete mp_accountManager;
+}
+
 
 void JHSMApi::initialize()
 {

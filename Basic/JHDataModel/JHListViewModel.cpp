@@ -190,6 +190,7 @@ void JHListViewModel::onNodeRemoved(const QString& nodeId)
 {
     Q_ASSERT(m_dataSource);
     m_dataSource->deleteFromTrash(nodeId);
+    emit removeData();
 }
 
 void JHListViewModel::onNodeChanged(const QString& nodeId, const QJsonObject& )

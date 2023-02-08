@@ -4,6 +4,7 @@ import JHQmlControls 1.0
 import QtQml 2.12
 import QtGraphicalEffects 1.12
 import JHFramework 1.0
+import QtQuick.Controls 2.5
 Item {
     Item{
         id: tb1
@@ -32,52 +33,106 @@ Item {
         anchors.fill: parent
         anchors.topMargin: 60
 
+        Row{
+            anchors.top: parent.top
+            anchors.bottom: content.top
+            anchors.left: parent.left
+            anchors.right: addstudentRect.left
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+            anchors.topMargin: 12
+            anchors.bottomMargin: 5
+            spacing: 10
+
+            Rectangle{
+                width: 110
+                height: parent.height
+
+                JHButton2{
+                    id:button1
+                    anchors.fill: parent
+                    selectColor:"#99CCFF"
+                    imageSource: "qrc:/JHStudentManager/image/addStudent.svg"
+                    text: "成绩总览"
+                    onButtonClicked: {
+                        setColor(selectColor)
+                        content.currentIndex = 0
+                        button2.selected =false
+                        button2.clearColor()
+                    }
+
+                    Component.onCompleted: {
+                        selected = true
+                        setColor(selectColor)
+                    }
+                }
+            }
+
+            Rectangle{
+                width: 110
+                height: parent.height
+                JHButton2{
+                    id:button2
+                    anchors.fill: parent
+                    imageSource: "qrc:/JHStudentManager/image/addStudent.svg"
+                    text: "成绩登入"
+                    selectColor:"#99CCFF"
+                    onButtonClicked: {
+                        setColor(selectColor)
+                        content.currentIndex = 1
+                        button1.selected =false
+                        button1.clearColor()
+                    }
+                }
+            }
+        }
+
         Rectangle{
+            id:addstudentRect
             anchors.right: parent.right
             anchors.rightMargin: 20
             anchors.top: parent.top
-            anchors.topMargin: 10
-            anchors.bottom:listview.top
-            anchors.bottomMargin: 10
+            anchors.topMargin: 12
+            anchors.bottom:content.top
+            anchors.bottomMargin: 5
             width: 110
             height: 40
             JHButton2{
                 anchors.fill: parent
                 imageSource: "qrc:/JHStudentManager/image/addStudent.svg"
                 text: "添加学生"
-
+                property bool modelInit: false
                 onButtonClicked: {
-                    addStudent.showPage()
+                    selected = false
                     addStudent.width = conent.width/4*3
                     addStudent.height = conent.height/5*4
-
-                   // addStudent.listmodel = null
-                    addStudent.listmodel = SMApi.studentModel
+                    addStudent.showPage()
+                    if (modelInit === false){
+                        addStudent.init()
+                        modelInit = true
+                    }
                 }
             }
         }
 
-        JHStudentListView{
-            id:listview
+
+        SwipeView{
+            id: content
             anchors.fill: parent
             anchors.margins: 20
             anchors.topMargin: 60
+            interactive:false
+            spacing: 20
+            JHStudentListView{
+                id:listview
+            }
+            JHStudentListView{
+                id:listview3
+            }
         }
     }
 
     Component.onCompleted: {
-//        var index = 0
-//        for (var i = 0; i <50 * 6; i+=6)
-//        {
-//            listmodel.append(setData(i,"张"+i,i+2,i+3,i+4,"gdfg","gdfg",index))
-//            index++
-//        }
-//        console.log(listmodel.count)
-    }
 
-    function setData(a,b,c,d,e,f,g,index){
-        var data = {"chinese":a,"name":b,"mathematics":c,"english":d,"score":e,"remark":f,"sex":1,"index":index}
-        return data
     }
-
 }

@@ -4,11 +4,13 @@ import QtQuick.Controls 2.4
 import QtQml 2.12
 import JHFramework 1.0
 Rectangle {
-
-    function adffd(key,data){
-        listmodel.dataSource.append(key,data,true)
+    Connections{
+        target: SMApi.studentModel
+        onRemoveData:{
+            dataListView.model = null
+            dataListView.model = SMApi.studentModel
+        }
     }
-
     Flickable{
         id:slotFlick
         clip: true
@@ -214,9 +216,13 @@ Rectangle {
                             border.color:parent.focus? "#C0C0C6":"transparent"
                         }
                         onEditingFinished: {
-                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[cellG.tagName],text)
                             focus = false
                             cellGm.width = cellG.width
+
+                            if (model.data.remark === text)
+                                return
+
+                            SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[cellG.tagName],text)
                         }
                         onFocusChanged: {
                             if (focus == true){
@@ -229,16 +235,27 @@ Rectangle {
                             }
                         }
                     }
-                    MouseArea{
+                    Rectangle{
                         id:cellGm
                         anchors.top: parent.top
                         anchors.left: parent.Left
                         anchors.bottom: parent.bottom
                         width: parent.width
-                        propagateComposedEvents:true
-                        onDoubleClicked: {
-                            beizhu.focus = true
-                            cellGm.width = 1
+                        color: "transparent"
+                        MouseArea{
+                            anchors.fill: parent
+                            onDoubleClicked: {
+                                beizhu.focus = true
+                                cellGm.width = 1
+                            }
+                            onPressed: {
+                                if (dataListView.isSelectItem !== null){
+                                    dataListView.isSelectItem.selectState = false
+                                }
+
+                                selectState = true
+                                dataListView.isSelectItem = row
+                            }
                         }
                     }
                 }

@@ -1,8 +1,0 @@
-module JHQmlControls
-JHNavBarV 1.0 qrc:/JHQmlControl/JHNavBarV.qml
-JHButton 1.0 qrc:/JHQmlControl/JHButton.qml
-JHMessagePopup 1.0 qrc:/JHQmlControl/JHMessagePopup.qml
-JHPopup 1.0 qrc:/JHQmlControl/JHPopup.qml
-JHMask 1.0 qrc:/JHQmlControl/JHMask.qml
-JHDialog 1.0 qrc:/JHQmlControl/JHDialog.qml
-plugin JHQmlControls

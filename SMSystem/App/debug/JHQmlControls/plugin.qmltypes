@@ -9,7 +9,7 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: []
     Component{
-        name: "JHButton 1.0"
+        name: "JHButton"
         prototype: "QQuickRectangle"
         exports: [
             "JHQmlControls/JHButton 1.0",
@@ -216,6 +216,8 @@ Module {
         exportMetaObjectRevisions: [0]
 		Property { name: "imageSource"; type: "alias" }
         Property { name: "text"; type: "alias" }
+        Property { name: "selected"; type: "bool" }
+        Property { name: "selectColor"; type: "string" }
 		Signal {
             name: "buttonClicked"
         }

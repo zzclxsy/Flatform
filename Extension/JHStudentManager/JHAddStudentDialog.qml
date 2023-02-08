@@ -2,8 +2,10 @@ import QtQuick 2.0
 import JHQmlControls 1.0
 import QtQuick.Controls 2.4
 JHDialog {
-    property alias listmodel: listview.listmodel
     label:"添加学生"
+    function init(){
+        listview.switchover()
+    }
 
     handle:Rectangle {
         anchors.fill: parent
@@ -42,12 +44,12 @@ JHDialog {
                 }
             }
         }
-
         JHAddStudentListView{
             id:listview
             anchors.fill: parent
             anchors.margins: 10
             anchors.topMargin: 60
         }
+
     }
 }

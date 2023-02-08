@@ -60,6 +60,7 @@ public:
     bool    insertStudentToClass(tb_student student);
     bool    updataStudentToClass(tb_student student);
     QVector<tb_student> getStudentInClass(int classID);
+    bool    removeStudentInClass(int id);
 
 private:
     bool checkTable(QString tableName);

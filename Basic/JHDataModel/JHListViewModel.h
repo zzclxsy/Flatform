@@ -10,6 +10,7 @@ class JHListViewModel:public QAbstractListModel
     Q_PROPERTY(QJsonObject roleMap READ getRoleMap WRITE setRoleMap NOTIFY roleMapChanged)
 public:
     JHListViewModel();
+    ~JHListViewModel(){}
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
@@ -33,7 +34,7 @@ public slots:
 
 signals:
     void dataSourceChanged();
-
+    void removeData();
     void roleMapChanged();
 
 private:

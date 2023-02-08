@@ -201,6 +201,14 @@ QVector<tb_student> JHSystemSqliteAccess::getStudentInClass(int classID)
     return userclass;
 }
 
+bool JHSystemSqliteAccess::removeStudentInClass(int id)
+{
+    QString execStr = QString("delete from student_tb where id='%1';")
+                .arg(id);
+
+    return write(execStr);
+}
+
 
 bool JHSystemSqliteAccess::checkTable(QString tableName)
 {

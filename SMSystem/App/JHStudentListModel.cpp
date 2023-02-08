@@ -1,8 +1,9 @@
 #include "JHStudentListModel.h"
-#include "JHSqlite/JHDatabaseModule.h"
 #include <QDebug>
 #include <Framework/Framework.h>
 #include "AppData/JHAppData.h"
+#include <QtConcurrent>
+#include <QThread>
 JHStudentListModel::JHStudentListModel(QObject *parent)
 {
     m_keyID = "student";
@@ -24,8 +25,19 @@ JHStudentListModel::JHStudentListModel(QObject *parent)
     this->setRoleMap(roleMap);
 
     mp_sqldata =Framework::getApp()->getObjectManager()->getXService<JHSystemSqliteAccessServer>("JHSystemSqliteAccessServer")->systemSqlApi();
+
+    m_sqlData.clear();
+    mb_handle = true;
+
+    m_thread = QtConcurrent::run(this,&JHStudentListModel::handleSqlData);
 }
 
+JHStudentListModel::~JHStudentListModel()
+{
+    mb_handle = false;
+    m_thread.waitForFinished();
+}
+//如果后续发现sql增删改查耗时严重可以将其放到线程里面进行操作
 void JHStudentListModel::initialize()
 {
     QString classID= Framework::getApp()->getAppData()->getShareData("classID");
@@ -52,12 +64,11 @@ void JHStudentListModel::initialize()
             m_maxID = it->id;
         }
     }
-
 }
 
 void JHStudentListModel::addStudent(QJsonObject studentInfo)
 {
-    QString key = QString("%1_%2").arg(m_keyID).arg(mp_list->count());
+    QString key = QString("%1_%2").arg(m_keyID).arg(m_maxID);
     QString classID= Framework::getApp()->getAppData()->getShareData("classID");
     m_maxID++;
 
@@ -69,9 +80,16 @@ void JHStudentListModel::addStudent(QJsonObject studentInfo)
     info.classIndex = classID.toInt();
 
     studentInfo["ID"] = m_maxID;
+
     mp_list->append(key,studentInfo,true);
 
-//    mp_sqldata->insertStudentToClass(info);
+    sSqlData sqldata;
+    sqldata.data = info;
+    sqldata.operate = 0;
+
+    m_mutex.lock();
+    m_sqlData.push_back(sqldata);
+    m_mutex.unlock();
 }
 
 void JHStudentListModel::updataStudentInfo(int index, QString key, QString value)
@@ -87,11 +105,56 @@ void JHStudentListModel::updataStudentInfo(int index, QString key, QString value
     info.studentName = data["name"].toString();
     info.studentSex = data["sex"].toString();
     info.remark = data["remark"].toString();
-//    mp_sqldata->updataStudentToClass(info);
 
+    sSqlData sqldata;
+    sqldata.data = info;
+    sqldata.operate = 1;
+    m_mutex.lock();
+    m_sqlData.push_back(sqldata);
+    m_mutex.unlock();
 }
 
 void JHStudentListModel::deleteStudent(int index)
 {
+    int id =  mp_list->nodeAt(index)->toJsonObject().value("ID").toInt();
     mp_list->remove(mp_list->nodeAt(index)->getNodeId(),true);
+
+    tb_student info;
+    info.id = id;
+
+    sSqlData sqldata;
+    sqldata.data = info;
+    sqldata.operate = 2;
+
+    m_mutex.lock();
+    m_sqlData.push_back(sqldata);
+    m_mutex.unlock();
+}
+
+void JHStudentListModel::handleSqlData()
+{
+    while (mb_handle) {
+        if (m_sqlData.isEmpty()){
+            QThread::msleep(100);
+            continue;
+        }
+        m_mutex.lock();
+        sSqlData sqlData = m_sqlData.takeFirst();
+        m_mutex.unlock();
+        qDebug()<<"sqlData:"<<sqlData.data.remark<<sqlData.data.studentName<<m_sqlData.size();
+        switch (sqlData.operate) {
+        case 0://增加学生信息
+            mp_sqldata->insertStudentToClass(sqlData.data);
+            break;
+        case 1://修改学生信息
+            mp_sqldata->updataStudentToClass(sqlData.data);
+            break;
+        case 2://删除学生信息
+            mp_sqldata->removeStudentInClass(sqlData.data.id);
+            break;
+
+        default:
+            break;
+        }
+    }
 }
