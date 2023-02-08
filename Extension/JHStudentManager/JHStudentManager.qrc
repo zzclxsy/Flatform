@@ -9,6 +9,9 @@
         <file>JHAddStudentListView.qml</file>
         <file>image/add.svg</file>
         <file>image/delete.svg</file>
+        <file>JHStudentOverview.qml</file>
+        <file>image/date.svg</file>
+        <file>JHStudentScoreEntry.qml</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

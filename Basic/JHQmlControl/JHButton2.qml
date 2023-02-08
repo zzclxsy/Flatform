@@ -60,15 +60,10 @@ Rectangle{
         }
         onExited: {
             imagecolor.color = "transparent"
-
-            if ( selected ===false){
-              parent.color = "transparent"
-            }
-
+            parent.color =selected?selectColor:"transparent"
             buttonExited()
         }
         onClicked: {
-            selected = true
             buttonClicked()
         }
         onPressed: {

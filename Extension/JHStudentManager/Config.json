@@ -1,0 +1,13 @@
+{
+"studentListview":{
+    "roleMap": {
+        "A": "index",
+        "B": "name",
+        "C": "chinese",
+        "D": "mathematics",
+        "E": "english",
+        "F": "score",
+        "G": "remark"
+    }
+    }
+}

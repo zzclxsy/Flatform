@@ -16,6 +16,7 @@ HEADERS += \
         JHStudentManager.h
 
 DISTFILES = qmldir \
+    Config.json \
     install.bat \
     installd.bat
 

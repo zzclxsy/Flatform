@@ -18,11 +18,10 @@ Rectangle {
     }
     function deleteStudent()
     {
-        if (modelCurrentIndex === -1)
+        if (modelCurrentIndex >= dataListView.count)
             return
 
         SMApi.studentModel.deleteStudent(modelCurrentIndex)
-        modelCurrentIndex = -1
     }
 
     property int modelCurrentIndex: 0
@@ -31,6 +30,7 @@ Rectangle {
         target: SMApi.studentModel
         onRemoveData:{
             switchover()
+            dataListView.positionViewAtIndex(modelCurrentIndex,ListView.Center)
         }
     }
 
@@ -113,6 +113,57 @@ Rectangle {
                 tagName:"G"
             }
 
+            JHTableColumn{
+                id:columnH
+                tagName:"H"
+            }
+
+            JHTableColumn{
+                id:columnI
+                tagName:"I"
+            }
+
+            JHTableColumn{
+                id:columnJ
+                tagName:"J"
+            }
+
+            JHTableColumn{
+                id:columnK
+                tagName:"K"
+            }
+
+            JHTableColumn{
+                id:columnL
+                tagName:"L"
+            }
+
+            JHTableColumn{
+                id:columnM
+                tagName:"M"
+            }
+
+            JHTableColumn{
+                id:columnN
+                tagName:"N"
+            }
+
+
+            JHTableColumn{
+                id:columnO
+                tagName:"O"
+            }
+
+            JHTableColumn{
+                id:columnP
+                tagName:"P"
+            }
+
+            JHTableColumn{
+                id:columnQ
+                tagName:"Q"
+            }
+
 
             onPressed: {
                 slotFlick.interactive = false;
@@ -130,12 +181,13 @@ Rectangle {
             anchors.fill: parent
             headerItem:headerD
             property var isSelectItem: null
+
             delegate: JHTableRow{
                 id:row
                 width: headerD.width
                 color: "white"
                 height: 50
-
+                selectState:(modelCurrentIndex === index)?true:false
                 JHTableCell {
                     id: cellA
                     tagName: columnA.tagName
@@ -193,17 +245,6 @@ Rectangle {
 
                             SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnB.tagName],text)
                         }
-                        onFocusChanged: {
-                            if (focus == true){
-                                if (dataListView.isSelectItem !== null){
-                                    dataListView.isSelectItem.selectState = false
-                                }
-
-                                selectState = true
-                                dataListView.isSelectItem = row
-                                modelCurrentIndex = index
-                            }
-                        }
                     }
                     Rectangle{
                         id:cellBm
@@ -219,12 +260,8 @@ Rectangle {
                                 cellBm.width = 1
                             }
                             onPressed: {
-                                if (dataListView.isSelectItem !== null){
-                                    dataListView.isSelectItem.selectState = false
-                                }
-
-                                selectState = true
                                 dataListView.isSelectItem = row
+                                modelCurrentIndex = index
                             }
                         }
                     }
@@ -263,11 +300,6 @@ Rectangle {
                         }
                         onPressedChanged: {
                             if (pressed == true){
-                                if (dataListView.isSelectItem !== null){
-                                    dataListView.isSelectItem.selectState = false
-                                }
-
-                                selectState = true
                                 dataListView.isSelectItem = row
                                 modelCurrentIndex = index
                             }
@@ -308,17 +340,6 @@ Rectangle {
 
                             SMApi.studentModel.updataStudentInfo(index,headerD.roleMap[columnD.tagName],text)
                         }
-                        onFocusChanged: {
-                            if (focus == true){
-                                if (dataListView.isSelectItem !== null){
-                                    dataListView.isSelectItem.selectState = false
-                                }
-
-                                selectState = true
-                                dataListView.isSelectItem = row
-                                modelCurrentIndex = index
-                            }
-                        }
                     }
 
                     Rectangle{
@@ -335,27 +356,18 @@ Rectangle {
                                 cellDm.width = 1
                             }
                             onPressed: {
-                                if (dataListView.isSelectItem !== null){
-                                    dataListView.isSelectItem.selectState = false
-                                }
-
-                                selectState = true
                                 dataListView.isSelectItem = row
+                                modelCurrentIndex = index
                             }
                         }
                     }
 
                 }
 
-                onClicked: {
-                    if (dataListView.isSelectItem !== null){
-                        dataListView.isSelectItem.selectState = false
-                    }
 
-                    selectState = true
+                onClicked: {
                     dataListView.isSelectItem = row
                     modelCurrentIndex = index
-
                 }
             }
         }

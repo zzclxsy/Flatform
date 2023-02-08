@@ -51,11 +51,12 @@ Item {
                 JHButton2{
                     id:button1
                     anchors.fill: parent
+                    selected:true
                     selectColor:"#99CCFF"
                     imageSource: "qrc:/JHStudentManager/image/addStudent.svg"
                     text: "成绩总览"
                     onButtonClicked: {
-                        setColor(selectColor)
+                        selected = true
                         content.currentIndex = 0
                         button2.selected =false
                         button2.clearColor()
@@ -74,15 +75,39 @@ Item {
                 JHButton2{
                     id:button2
                     anchors.fill: parent
+                    selected:false
                     imageSource: "qrc:/JHStudentManager/image/addStudent.svg"
-                    text: "成绩登入"
+                    text: "成绩登记"
                     selectColor:"#99CCFF"
                     onButtonClicked: {
-                        setColor(selectColor)
+                        selected = true
                         content.currentIndex = 1
                         button1.selected =false
                         button1.clearColor()
                     }
+                }
+            }
+        }
+
+        Rectangle{
+            id:subject
+            anchors.right: parent.right
+            anchors.rightMargin: 150
+            anchors.top: parent.top
+            anchors.topMargin: 12
+            anchors.bottom:content.top
+            anchors.bottomMargin: 5
+            width: 130
+            height: 40
+            JHButton2{
+                id:subjectbtn
+                anchors.fill: parent
+                imageSource: "qrc:/JHStudentManager/image/date.svg"
+                text: "学科过滤器"
+                property bool isshow: false
+                onButtonClicked: {
+                    subjectselect.visible=!isshow
+                    isshow=!isshow
                 }
             }
         }
@@ -123,11 +148,133 @@ Item {
             anchors.topMargin: 60
             interactive:false
             spacing: 20
-            JHStudentListView{
-                id:listview
+
+            JHStudentOverview{
+                id:overview
             }
-            JHStudentListView{
-                id:listview3
+
+            JHStudentScoreEntry{
+
+            }
+        }
+
+        DropShadow {
+             anchors.fill: subjectselect
+             visible: subjectselect.visible
+             horizontalOffset: 0
+             verticalOffset: 0
+             radius: 8
+             samples: 17
+             color: "#333333"
+             source: subjectselect
+         }
+
+        Rectangle{
+            id:subjectselect
+            width:subject.width
+            height: 400
+            anchors.top: subject.bottom
+            anchors.topMargin: 3
+            anchors.right: subject.right
+            visible: false
+
+            ListView{
+                id:sublist
+                anchors.fill: parent
+                anchors.bottomMargin: 40
+                clip:true
+                model: ListModel{
+                    ListElement{
+                        name:"  语文"
+                    }
+                    ListElement{
+                        name:"  数学"
+                    }
+                    ListElement{
+                        name:"  英语"
+                    }
+                    ListElement{
+                        name:"  物理"
+                    }
+                    ListElement{
+                        name:"  化学"
+                    }
+                    ListElement{
+                        name:"  生物"
+                    }
+                    ListElement{
+                        name:"  政治"
+                    }
+                    ListElement{
+                        name:"  历史"
+                    }
+                    ListElement{
+                        name:"  地理"
+                    }
+                }
+
+                delegate: Rectangle{
+                    height: 40
+                    width: parent.width
+                    CheckBox{
+                        anchors.fill: parent
+                        text: name
+                        onCheckStateChanged: {
+                            if (checkState == Qt.Unchecked){
+                                overview.overviewList.setVisable(index,false)
+                            }else if (checkState == Qt.Checked){
+                                overview.overviewList.setVisable(index,true)
+                            }
+                        }
+                        Component.onCompleted: {
+                            if(index == 0)
+                                checkState = Qt.Checked
+
+                            if(index == 1)
+                                checkState = Qt.Checked
+
+                            if(index == 2)
+                                checkState = Qt.Checked
+
+                        }
+                    }
+                }
+            }
+
+            Rectangle{
+                anchors.right: parent.right
+                anchors.rightMargin: 30
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                anchors.top: sublist.bottom
+                anchors.topMargin: 5
+                anchors.bottom:subjectselect.bottom
+                anchors.bottomMargin: 5
+                radius: 4
+                width: parent.width
+                border.color: "#C0C0C6"
+                Text {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "宋体"
+                    text: qsTr("关闭")
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: {
+                        parent.color="#99CCFF"
+                    }
+                    onExited: {
+                        parent.color ="transparent"
+                    }
+                    onClicked: {
+                        subjectselect.visible=!subjectbtn.isshow
+                        subjectbtn.isshow=!subjectbtn.isshow
+                    }
+                }
+
             }
         }
     }

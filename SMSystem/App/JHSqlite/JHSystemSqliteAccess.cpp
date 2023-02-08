@@ -8,7 +8,7 @@ JHSystemSqliteAccess::JHSystemSqliteAccess(QString dbName):JHBaseSqliteAccess(db
     if (!checkTable(QString("user_tb")))
     {
         execStrs << QString("create table user_tb(		\
-                                id integer primary key,		\
+                            id integer primary key,		\
                             userName varchar(128) default '',\
                             userPassword varchar(128) default ''\
                             );");
@@ -19,7 +19,7 @@ JHSystemSqliteAccess::JHSystemSqliteAccess(QString dbName):JHBaseSqliteAccess(db
     if (!checkTable(QString("class_tb")))
     {
         execStrs << QString("create table class_tb(		\
-                                id integer primary key,		\
+                            id integer primary key,		\
                             grade varchar(128) default '',\
                             class varchar(128) default '',\
                             userIndex int default 0\
@@ -29,7 +29,7 @@ JHSystemSqliteAccess::JHSystemSqliteAccess(QString dbName):JHBaseSqliteAccess(db
     if (!checkTable(QString("student_tb")))
     {
         execStrs << QString("create table student_tb(		\
-                                id integer primary key,		\
+                            id integer primary key,		\
                             studentName varchar(128) default '',\
                             sex varchar(128) default '',\
                             age varchar(128) default '',\
@@ -41,7 +41,7 @@ JHSystemSqliteAccess::JHSystemSqliteAccess(QString dbName):JHBaseSqliteAccess(db
     if (!checkTable(QString("score_tb")))
     {
         execStrs << QString("create table score_tb(		\
-                                id integer primary key,		\
+                            id integer primary key,		\
                             chinese varchar(128) default '',\
                             mathematics varchar(128) default '',\
                             english varchar(128) default '',\
@@ -86,7 +86,7 @@ bool JHSystemSqliteAccess::insertUserToTable(tb_user user)
 bool JHSystemSqliteAccess::removeUserInTable(QString userName)
 {
     QString execStr = QString("delete from user_tb where userName='%1';")
-                .arg(userName);
+            .arg(userName);
 
     return write(execStr);
 }
@@ -109,7 +109,7 @@ tb_user JHSystemSqliteAccess::findUserInTable(QString userName)
     QList<QStringList> retList;
 
     if (read(exec, retList) == false || retList.count() == 0)
-            return user;
+        return user;
 
     user.id = retList.at(0).at(0).toUInt();
     user.userName = retList.at(0).at(1);
@@ -128,7 +128,7 @@ bool JHSystemSqliteAccess::insertClassToUser(tb_class userClass)
 bool JHSystemSqliteAccess::removeClassInUser(tb_class userClass)
 {
     QString execStr = QString("delete from class_tb where userIndex='%1' and grade='%2' and class='%3';")
-                .arg(userClass.userIndex).arg(userClass.studentGrade).arg(userClass.studentClass);
+            .arg(userClass.userIndex).arg(userClass.studentGrade).arg(userClass.studentClass);
 
     return write(execStr);
 }
@@ -138,12 +138,12 @@ QVector<tb_class> JHSystemSqliteAccess::findClassInUser(tb_user user)
     QString exec = QString ("select * from class_tb where userIndex = '%1';")
             .arg(user.id);
 
-   QVector<tb_class> userclass;
+    QVector<tb_class> userclass;
 
     QList<QStringList> retList;
 
     if (read(exec, retList) == false || retList.count() == 0)
-            return userclass;
+        return userclass;
 
     for (int i = 0; i < retList.size(); i++)
     {
@@ -179,12 +179,12 @@ QVector<tb_student> JHSystemSqliteAccess::getStudentInClass(int classID)
     QString exec = QString ("select * from student_tb where classIndex = '%1';")
             .arg(classID);
 
-   QVector<tb_student> userclass;
+    QVector<tb_student> userclass;
 
     QList<QStringList> retList;
 
     if (read(exec, retList) == false || retList.count() == 0)
-            return userclass;
+        return userclass;
 
     for (int i = 0; i < retList.size(); i++)
     {
@@ -204,9 +204,20 @@ QVector<tb_student> JHSystemSqliteAccess::getStudentInClass(int classID)
 bool JHSystemSqliteAccess::removeStudentInClass(int id)
 {
     QString execStr = QString("delete from student_tb where id='%1';")
-                .arg(id);
+            .arg(id);
 
     return write(execStr);
+}
+
+int JHSystemSqliteAccess::getMaxIDInStudent()
+{
+    QString execStr = QString("select max(id) id from %1").arg("student_tb");
+    QList<QStringList> retList;
+
+    if (read(execStr, retList) < 0 || retList.count() == 0)
+        return 0;
+    qDebug()<< retList;
+    return retList.at(0).at(0).toInt();
 }
 
 

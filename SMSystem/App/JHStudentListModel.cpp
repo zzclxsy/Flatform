@@ -59,11 +59,10 @@ void JHStudentListModel::initialize()
 
         QString key = QString("%1_%2").arg(m_keyID).arg(mp_list->count());
         mp_list->append(key,data);
-
-        if (m_maxID < it->id){
-            m_maxID = it->id;
-        }
     }
+
+    m_maxID = mp_sqldata->getMaxIDInStudent();
+    qDebug()<<"m_maxID:"<<m_maxID;
 }
 
 void JHStudentListModel::addStudent(QJsonObject studentInfo)
@@ -127,6 +126,7 @@ void JHStudentListModel::deleteStudent(int index)
     sqldata.operate = 2;
 
     m_mutex.lock();
+    qDebug()<<index;
     m_sqlData.push_back(sqldata);
     m_mutex.unlock();
 }

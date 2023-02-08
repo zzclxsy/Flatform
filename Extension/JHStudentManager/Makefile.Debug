@@ -58,6 +58,7 @@ OBJECTS       = debug\JHStudentManagerPlugin.obj \
 		debug\moc_JHStudentManager.obj
 
 DIST          = qmldir \
+		Config.json \
 		install.bat \
 		installd.bat JHStudentManagerPlugin.h \
 		JHStudentManager.h JHStudentManagerPlugin.cpp \
@@ -155,11 +156,14 @@ compiler_rcc_clean:
 debug\qrc_JHStudentManager.cpp: JHStudentManager.qrc \
 		D:\Software\Qt\Qt5.12.12\5.12.12\msvc2017_64\bin\rcc.exe \
 		JHStudentListView.qml \
+		JHStudentOverview.qml \
 		JHAddStudentDialog.qml \
 		JHAddStudentListView.qml \
+		JHStudentScoreEntry.qml \
 		JHStudentManager.qml \
 		JHStudentManagerSite.qml \
 		icon\studentinfo.svg \
+		image\date.svg \
 		image\addStudent.svg \
 		image\add.svg \
 		image\delete.svg
